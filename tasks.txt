@@ -1,0 +1,3 @@
+- Linting with turbo
+- Building apps with turbo
+- ESlint and Prettier with turbo
