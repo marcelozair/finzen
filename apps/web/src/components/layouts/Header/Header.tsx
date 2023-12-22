@@ -1,7 +1,7 @@
 import './Header.scss';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { findRoute } from '../../../routes/routes';
+import { findAdminRoute } from '../../../routes/routes';
 import { UserProfile } from './UserProfile/UserProfile';
 import { NotificationButton } from './Notification/NotificationButton/NotificationButton';
 
@@ -11,7 +11,7 @@ export const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const route = findRoute(location.pathname);
+    const route = findAdminRoute(location.pathname);
     setRouteName(route.name);
   }, [location.pathname]);
 

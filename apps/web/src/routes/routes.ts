@@ -1,29 +1,43 @@
+import { LazyExoticComponent, lazy } from 'react';
 
-export type JsxComponent = () => JSX.Element;
+
+export type ReactView = () => JSX.Element;
+export type LazyReactView = LazyExoticComponent<() => JSX.Element>
 
 export interface RouteApp {
-  path: string;
   to: string;
+  path: string;
   name: string;
+  Component: LazyReactView;
 }
 
-const routes: RouteApp[] = [
+const DashboardLazy = lazy(() => import('../views/admin/Dashboard/Dashboard'));
+const WalletLazy = lazy(() => import('../views/admin/Wallet/Wallet'));
+
+export const toRoutes = {
+  dashboard: '/admin/dashboard',
+  wallet: '/admin/wallet'
+} 
+
+export const adminRoutes: RouteApp[] = [
   {
+    to: toRoutes.dashboard,
     path: 'dashboard',
-    to: '/dashboard',
     name: 'Dashboard',
+    Component: DashboardLazy,
   },
   {
+    to: toRoutes.wallet,
     path: 'wallet',
-    to: '/wallet',
     name: 'Wallet',
-  }
+    Component: WalletLazy,
+  },
 ];
 
-export const findRoute = (pathname: string): RouteApp => {
-  const route = routes.find(({ to }) => to === pathname);
+export const findAdminRoute = (pathname: string): RouteApp => {
+  const route = adminRoutes.find(({ to }) => to === pathname);
   if (route) return route;
-  return routes[0];
+  return adminRoutes[0];
 };
 
-export default routes;
+// export default routes;

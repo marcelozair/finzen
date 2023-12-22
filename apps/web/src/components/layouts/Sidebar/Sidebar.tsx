@@ -1,23 +1,12 @@
 import './Sidebar.scss';
 
-import { NavLink, useLocation } from 'react-router-dom';
+import { sidebar } from './config';
+import { useLocation } from 'react-router-dom';
+import { SidebarLink } from './SidebarLink/SidebarLink';
 import { ICON_SIDEBAR_PATH, LOGO_IMAGE } from '../../../constants/path';
 
 export const Sidebar = () => {
-
   const location = useLocation();
-
-  const sidebarMenuOptions = [
-    { name: 'Dashboard', icon: 'dashboard-icon', path: '/admin/dashboard' },
-    { name: 'Wallet', icon: 'egresos-icon', path: '/admin/wallet' },
-    { name: 'Prestamos', icon: 'prestamos-icon', path: '/admin/prestamos' },
-    { name: 'Créditos', icon: 'creditos-icon', path: '/admin/creditos' },
-  ];
-
-  const sidebarHelpOptions = [
-    { name: 'Configuraciones', icon: 'configuraciones-icon', path: '/admin/configuraciones' },
-    { name: 'Ayuda', icon: 'ayuda-icon', path: '/admin/ayuda' },
-  ];
 
   return (
     <aside className="sidebar">
@@ -28,42 +17,13 @@ export const Sidebar = () => {
       <nav className="sidebar-nav">
         <section>
           <h3 className="nav-title">MENÚ</h3>
-          <ul>
-            {
-              sidebarMenuOptions.map(({ name, icon, path }) => (
-                <li key={name}>
-                  <NavLink className={({ isActive }) => (`sidebar-option ${isActive && 'sidebar-option__active'}`)} to={path}>
-                    {
-                      location.pathname === path
-                        ? <img src={`${ICON_SIDEBAR_PATH}/${icon}-active.svg`} />
-                        : <img src={`${ICON_SIDEBAR_PATH}/${icon}.svg`} />
-                    }
-                    <p>{name}</p>
-                  </NavLink>
-                </li>
-              ))
-            }
-          </ul>
+          <ul>{sidebar.menu.map((config) => (<SidebarLink key={config.name} config={config} />))}</ul>
         </section>
 
         <section>
           <h3 className="nav-title">AYUDA</h3>
           <ul>
-            {
-              sidebarHelpOptions.map(({ name, icon, path }) => (
-                <li key={name}>
-                  <NavLink className={({ isActive }) => (`sidebar-option ${isActive && 'sidebar-option__active'}`)} to={path}>
-                    {
-                      location.pathname === path
-                        ? <img src={`${ICON_SIDEBAR_PATH}/${icon}-active.svg`} />
-                        : <img src={`${ICON_SIDEBAR_PATH}/${icon}.svg`} />
-                    }
-                    <p>{name}</p>
-                  </NavLink>
-                </li>
-              ))
-
-            }
+            {sidebar.config.map((config) => (<SidebarLink key={config.name} config={config} />))}
             <li>
               <button className="sidebar-option">
                 <img src={`${ICON_SIDEBAR_PATH}/oscuro-icon.svg`} />

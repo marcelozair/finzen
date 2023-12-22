@@ -1,4 +1,5 @@
 import { LOGO_IMAGE } from '../../../../constants/path';
+
 import './ScreenLoading.scss';
 
 export const ScreenLoading = () => {

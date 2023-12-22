@@ -1,21 +1,32 @@
-import './App.scss';
-
-import { Home } from './views/Home/Home';
-import { Wallet } from './views/Wallet/Wallet';
-import { Dashboard } from './views/Dashboard/Dashboard';
-import { Admin } from './components/layouts/Admin/Admin';
+import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route, Navigate } from 'react-router-dom';
+
+import { adminRoutes } from './routes/routes';
+import { SignIn } from './views/auth/SignIn/SignIn';
+import { PrivateRoutes } from './routes/PrivateRoutes';
+import { Admin } from './components/layouts/Admin/Admin';
+
+import './App.scss';
+import { PublicRoutes } from './routes/PublicRoutes';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/admin" element={<Admin />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="wallet" element={<Wallet />} />
-        <Route path="*" element={<Navigate to="dashboard" />} />
-      </Route>
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PublicRoutes />}>
+          <Route path="/sign-in" element={<SignIn />} />
+        </Route>
+        <Route element={<PrivateRoutes />} >
+          <Route path="admin" element={<Admin />}>
+            {adminRoutes.map(({ path, Component  }) => (
+              <Route key={path} path={path} element={<Component />} />
+            ))}
+
+            <Route path="*" element={<Navigate to="dashboard" />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
