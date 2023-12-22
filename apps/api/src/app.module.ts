@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { BcryptService } from './services/bcrypt.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { BcryptService } from './services/bcrypt.service';
     WalletModule,
     ProfileModule,
   ],
+  controllers: [AppController],
   providers: [BcryptService],
   exports: [BcryptService]
 })
