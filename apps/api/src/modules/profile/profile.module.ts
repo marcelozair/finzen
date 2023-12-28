@@ -15,5 +15,6 @@ import { UserModule } from '../user/user.module';
     UserProviderRepository,
     ProfileService,
   ],
+  exports: [ProfileService]
 })
 export class ProfileModule {}

@@ -16,10 +16,10 @@ export class ProfileService {
     return profile;
   }
 
-  async getProfile(userId: number) {
+  async getProfile(profileId: number) {
     const profile = await this.accountRepository.findOne({
       where: {
-        userId,
+        id: profileId,
       },
     });
 

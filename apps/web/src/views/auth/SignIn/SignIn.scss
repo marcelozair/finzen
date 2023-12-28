@@ -1,0 +1,28 @@
+.signin {
+  @apply w-full h-screen flex items-center justify-center;
+}
+
+.signin-box {
+  @apply bg-white h-[600px] rounded-md overflow-hidden flex;
+}
+
+.signin-form {
+  @apply w-full px-[60px] flex flex-col justify-center;
+  width: calc(960px - 360px)
+}
+
+.signin-form__title {
+  @apply text-2xl font-bold;
+}
+
+.signin-form__desc {
+  @apply text-base mb-10;
+}
+
+.signin-form__container {
+  @apply flex flex-col gap-5;
+}
+
+.signin-form__message {
+  @apply mt-6 text-center text-sm;
+}

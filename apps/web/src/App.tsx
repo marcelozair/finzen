@@ -1,15 +1,22 @@
+import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { adminRoutes } from './routes/routes';
 import { SignIn } from './views/auth/SignIn/SignIn';
+import { addAxiosAuthorization } from './api/config';
+import { PublicRoutes } from './routes/PublicRoutes';
 import { PrivateRoutes } from './routes/PrivateRoutes';
 import { Admin } from './components/layouts/Admin/Admin';
+import { adminRoutes, profielRoutes } from './routes/routes';
 
 import './App.scss';
-import { PublicRoutes } from './routes/PublicRoutes';
 
 const App = () => {
+
+  useEffect(() => {
+    addAxiosAuthorization();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -21,9 +28,14 @@ const App = () => {
             {adminRoutes.map(({ path, Component  }) => (
               <Route key={path} path={path} element={<Component />} />
             ))}
-
-            <Route path="*" element={<Navigate to="dashboard" />} />
           </Route>
+
+          <Route path="profile">
+            {profielRoutes.map(({ path, Component  }) => (
+              <Route key={path} path={path} element={<Component />} />
+            ))}
+          </Route>
+          <Route path="*" element={<Navigate to="dashboard" />} />
         </Route>
       </Routes>
     </BrowserRouter>

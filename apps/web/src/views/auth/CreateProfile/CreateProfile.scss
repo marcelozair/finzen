@@ -1,0 +1,27 @@
+.create-profile {
+  @apply w-full h-screen flex items-center justify-center;
+
+  &__container {
+    @apply w-11/12 md:w-3/4;
+  }
+
+  &__title {
+    @apply font-bold text-xl text-title-font md:text-left text-center;
+
+    span {
+      @apply text-primary-normal;
+    }
+  }
+
+  p {
+    @apply md:text-left text-center;
+  }
+
+  &__field {
+    @apply h-10 p-3 border-[2px] w-full md:w-1/2 block border-primary-normal rounded-md bg-primary-light mt-4 outline-none;
+  }
+
+  &__button {
+    @apply text-primary-normal mt-2 cursor-pointer;
+  }
+}

@@ -11,12 +11,15 @@ export interface RouteApp {
   Component: LazyReactView;
 }
 
-const DashboardLazy = lazy(() => import('../views/admin/Dashboard/Dashboard'));
 const WalletLazy = lazy(() => import('../views/admin/Wallet/Wallet'));
+const DashboardLazy = lazy(() => import('../views/admin/Dashboard/Dashboard'));
+const CreateProfileLazy = lazy(() => import('../views/auth/CreateProfile/CreateProfile'));
 
 export const toRoutes = {
   dashboard: '/admin/dashboard',
-  wallet: '/admin/wallet'
+  wallet: '/admin/wallet',
+
+  createProfile: '/profile/create',
 } 
 
 export const adminRoutes: RouteApp[] = [
@@ -33,6 +36,15 @@ export const adminRoutes: RouteApp[] = [
     Component: WalletLazy,
   },
 ];
+
+export const profielRoutes: RouteApp[] = [
+  {
+    to: toRoutes.createProfile,
+    path: 'create',
+    name: 'Create Profile',
+    Component: CreateProfileLazy,
+  }
+]
 
 export const findAdminRoute = (pathname: string): RouteApp => {
   const route = adminRoutes.find(({ to }) => to === pathname);

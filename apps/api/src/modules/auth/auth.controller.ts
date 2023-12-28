@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { RegisterDto } from './dto/register.dto';
 import { UserService } from '../user/user.service';
+import { ProfileService } from '../profile/profile.service';
 
 @Controller('auth')
 export class AuthController {
@@ -14,6 +15,9 @@ export class AuthController {
 
   @Inject(UserService)
   private readonly userService: UserService;
+
+  @Inject(ProfileService)
+  private readonly profileService: ProfileService;
   
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
@@ -24,7 +28,7 @@ export class AuthController {
 
     delete user.password;
 
-    return res.json({ message: 'user created', user, token })
+    return res.json({ message: 'user created', user, token });
   }
 
   @Post('sign-in')
@@ -41,6 +45,11 @@ export class AuthController {
     const token = await this.authService.encryptToken(user.id);
 
     delete user.password;
+
+    if (user.profileSelected) {
+      const profile = await this.profileService.getProfile(user.profileSelected);
+      user.profile = profile;
+    }
 
     return res.json({ message: 'user loggin successful', token, user });
   }

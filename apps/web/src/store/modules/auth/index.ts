@@ -11,6 +11,6 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 export const {
-  setUserSub: setUserSubAction,
-  setUserAuthorization: setUserAuthorizationAction,
+  setSession: setSessionAction,
+  setProfile: setProfileAction,
 } = authSlice.actions;

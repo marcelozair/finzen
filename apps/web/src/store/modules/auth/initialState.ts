@@ -1,10 +1,6 @@
-export interface AuthState {
-  authorization: string | null;
-  userSub: string;
-}
+import { AuthState } from '../../../interfaces/Auth';
 
 export const initialState: AuthState = {
-  authorization: null,
-  userSub: '',
+  profile: null,
+  user: null,
 };
-

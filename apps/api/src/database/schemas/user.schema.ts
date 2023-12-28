@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { Profile } from './profile.schema';
-import { Table, Column, Model, HasMany, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, HasMany, DataType, HasOne } from 'sequelize-typescript';
 
 export enum EnumProvider {
   GOOGLE = 'google',
@@ -32,7 +32,15 @@ export class User extends Model {
   })
   provider: EnumProvider;
 
+  @Column({
+    field: 'profile_selected',
+    allowNull: true,
+  })
+  profileSelected: number;
 
   @HasMany(() => Profile)
   profiles: Profile[];
+
+  @HasOne(() => Profile)
+  profile: Profile;
 }
