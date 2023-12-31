@@ -28,7 +28,7 @@ export const databaseProviders = [
         Transaction,
         TransactionPlace,
       ]);
-      await sequelize.sync({ force: true });
+      await sequelize.sync({ force: false });
       return sequelize;
     },
   },

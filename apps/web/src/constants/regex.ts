@@ -1,0 +1,1 @@
+export const NAME_REGEX = /^[A-Za-záéíóúüñÁÉÍÓÚÜÑ]+(?:\s[A-Za-záéíóúüñÁÉÍÓÚÜÑ]+)*$/;

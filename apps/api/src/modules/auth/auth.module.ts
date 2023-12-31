@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
@@ -21,7 +20,6 @@ console.log('SECRET', process.env.JWT_SECRET);
       secret: '1dEIHe12tCtO',
       signOptions: { expiresIn: '60s' },
     }),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
   providers: [UserProviderRepository, BcryptService, AuthService],
 })

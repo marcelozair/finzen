@@ -15,12 +15,30 @@ export interface AuthProfileState {
   name: string;
 }
 
+
+/* --------- Auth Payloades --------- */
+
+export interface ISignUpPayload {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export interface ISignInPayload {
   email: string;
   password: string;
 }
 
+/* --------- Auth Api Responses --------- */
+
 export interface ISignInResponse {
+  message: string;
+  token: string;
+  user: IUser;
+}
+
+export interface ISignUpResponse {
   message: string;
   token: string;
   user: IUser;

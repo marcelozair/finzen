@@ -1,5 +1,3 @@
-import { Request } from 'express';
+import { User } from 'src/database/schemas/user.schema';
 
-export interface ITokenPayload {
-  userId: number;
-}
+export type ITokenPayload = User;

@@ -1,19 +1,21 @@
 import { Response } from 'express';
-import { AuthGuard } from '@nestjs/passport';
 import { Body, HttpStatus, Inject, Post } from '@nestjs/common';
 import { Controller, Res, HttpCode, UseGuards } from '@nestjs/common';
 
-import { User } from '../../database/schemas/user.schema';
 import { CreateAccountDto } from './dto/create-profile';
+import { User } from '../../database/schemas/user.schema';
 import { ProfileService } from '../profile/profile.service';
 import { GetUser } from 'src/common/decorators/user.decorators';
+import { AuthGuard } from '../auth/auth.guard';
+
+// #TODO assign profile by defauly when user create a new profile
 
 @Controller('profile')
 export class ProfileController {
   @Inject(ProfileService)
   private readonly profileService: ProfileService;
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @Post('create')
   @HttpCode(HttpStatus.CREATED)
   async createProfileAccount(

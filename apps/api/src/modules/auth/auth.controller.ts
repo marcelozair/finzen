@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { Controller, Res, HttpCode, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Body, HttpStatus, Inject, Post } from '@nestjs/common';
+import { Controller, Res, HttpCode, NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
@@ -19,12 +19,12 @@ export class AuthController {
   @Inject(ProfileService)
   private readonly profileService: ProfileService;
   
-  @Post('register')
+  @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
   async register(@Res() res: Response, @Body() body: RegisterDto) {
     const user = await this.userService.createUser(body);
 
-    const token = await this.authService.encryptToken(user.id);
+    const token = await this.authService.encryptToken(user);
 
     delete user.password;
 
@@ -42,7 +42,7 @@ export class AuthController {
     const validPassword = this.authService.validatePassword(password, user.password)
     if (!validPassword) throw new UnauthorizedException('wrong password');
 
-    const token = await this.authService.encryptToken(user.id);
+    const token = await this.authService.encryptToken(user);
 
     delete user.password;
 

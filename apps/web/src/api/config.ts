@@ -70,6 +70,6 @@ export const addAxiosAuthorization = () => {
   const authorization = getAuthorizationToken();
 
   if (authorization) {
-    $api.defaults.headers.common.Authorization = authorization;
+    $api.defaults.headers.common.Authorization = `Bearer ${authorization}`;
   }
 };

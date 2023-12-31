@@ -4,6 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { ITokenPayload } from './auth.types';
 import { BcryptService } from 'src/services/bcrypt.service';
+import { User } from 'src/database/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +22,8 @@ export class AuthService {
     return this.bcryptService.compare(hashPassword, password);
   }
 
-  async encryptToken(userId: number): Promise<string> {
-    return this.jwtService.sign({ userId } as ITokenPayload, { expiresIn: '1d' });
+  async encryptToken(user: User): Promise<string> {
+    return this.jwtService.sign(user.toJSON() as ITokenPayload, { expiresIn: '1d' });
   }
 
   async decryptToken(token: string): Promise<ITokenPayload> {

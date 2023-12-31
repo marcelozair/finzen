@@ -74,7 +74,7 @@ export const SignIn = () => {
             <Button type="submit" loading={loading}>LOG IN</Button>
           </div>
           <p className="signin-form__message">
-            You don't have an account? <Link className="link" to="">Create account</Link>
+            You don't have an account? <Link className="link" to={toRoutes.signIn}>Create account</Link>
           </p>
         </div>
       </form>

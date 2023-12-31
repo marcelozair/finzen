@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { SignIn } from './views/auth/SignIn/SignIn';
+import { SignUp } from './views/auth/SignUp/SignUp';
+
 import { addAxiosAuthorization } from './api/config';
 import { PublicRoutes } from './routes/PublicRoutes';
 import { PrivateRoutes } from './routes/PrivateRoutes';
@@ -22,6 +24,7 @@ const App = () => {
       <Routes>
         <Route element={<PublicRoutes />}>
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Route>
         <Route element={<PrivateRoutes />} >
           <Route path="admin" element={<Admin />}>
@@ -35,8 +38,9 @@ const App = () => {
               <Route key={path} path={path} element={<Component />} />
             ))}
           </Route>
-          <Route path="*" element={<Navigate to="dashboard" />} />
         </Route>
+
+        <Route path="*" element={<Navigate to="/sign-in" />} />
       </Routes>
     </BrowserRouter>
   );

@@ -16,6 +16,9 @@ const DashboardLazy = lazy(() => import('../views/admin/Dashboard/Dashboard'));
 const CreateProfileLazy = lazy(() => import('../views/auth/CreateProfile/CreateProfile'));
 
 export const toRoutes = {
+  signIn: '/sign-in',
+  signUp: '/sign-up',
+
   dashboard: '/admin/dashboard',
   wallet: '/admin/wallet',
 
