@@ -1,5 +1,4 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-
 import { IGetTransactionPayload, TransactionState } from '../../../interfaces/Transaction';
 
 const transactionReducer = {
