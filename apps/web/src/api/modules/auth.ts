@@ -13,5 +13,9 @@ export const $authApi = {
 
   createProfile: (data: ICreateProfilePayload): Promise<ICreateProfileResponse> => {
     return $axios.post('profile/create', { data });
+  },
+
+  session: (): Promise<ISignInResponse> => {
+    return $axios.post('auth/session');
   }
 };

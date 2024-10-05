@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, ICreateProfileResponse, ISignInResponse } from '../../../interfaces/Auth';
+import { initialState } from './initialState';
 
 const authReducer = {
   setSession(state: AuthState, { payload }: PayloadAction<ISignInResponse>) {
@@ -30,6 +31,11 @@ const authReducer = {
 
     return state;
   },
+
+  removeSession(state: AuthState) {
+    state = initialState;
+    return state;
+  }
 };
 
 export default authReducer;

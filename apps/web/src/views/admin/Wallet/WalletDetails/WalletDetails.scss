@@ -1,0 +1,15 @@
+.wallet-details {
+  @apply flex gap-10 border-t-2 border-app-border pt-8;
+
+  &-account {
+    @apply w-[18%];
+  }
+
+  &-line {
+    @apply min-h-[500px];
+  }
+
+  &-summary {
+    width: calc(100% - 18%);
+  }
+}

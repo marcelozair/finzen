@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { toRoutes } from '../../../routes/routes';
 import { $authApi } from '../../../api/modules/auth';
 import { useAppDispatch } from '../../../store/hooks';
 import { ISignInPayload } from '../../../interfaces/Auth';
@@ -14,7 +15,7 @@ import { TextField } from '../../../components/shared/TextField/TextField';
 import { PasswordField } from '../../../components/shared/PasswordField/PasswordField';
 
 import './SignIn.scss';
-import { toRoutes } from '../../../routes/routes';
+import { LOGO_IMAGE } from '../../../constants/path';
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -37,10 +38,11 @@ export const SignIn = () => {
       setAuthorizationToken(response.token);
       dispatch(setSessionAction(response));
 
-      if (!response.user.profileSelected) {
-        navigate(toRoutes.createProfile);
+      if (!response.user.profileId) {
+        return navigate(toRoutes.createProfile);
       }
 
+      return navigate(toRoutes.dashboard);
     }).catch((error) => {
       console.error(error)
     }).finally(() => {
@@ -50,10 +52,14 @@ export const SignIn = () => {
 
   return (
     <main className="signin">
+      <section className="signin-banner"></section>
       <form onSubmit={handleSubmit(onSubmit)} className="signin-box">
         <div className="signin-form">
-          <h1 className="signin-form__title">LOG IN.</h1>
-          <p className="signin-form__desc">Welcome dude! Are you ready to administrate your finances?</p>
+          <picture className="flex items-center justify-center mb-4">
+            <img src={LOGO_IMAGE} />
+          </picture>
+          <h1 className="signin-form__title">Welcome back</h1>
+          <p className="signin-form__desc">Do it for yourself, manage your finance</p>
           <div className="signin-form__container">
             <TextField
               {...register('email')}
@@ -71,10 +77,10 @@ export const SignIn = () => {
               placeholder="Enter your password"
               id="password"
             />
-            <Button type="submit" loading={loading}>LOG IN</Button>
+            <Button type="submit" loading={loading}>Sign In</Button>
           </div>
           <p className="signin-form__message">
-            You don't have an account? <Link className="link" to={toRoutes.signIn}>Create account</Link>
+            You don't have an account? <Link className="link" to={toRoutes.signUp}>Create account</Link>
           </p>
         </div>
       </form>

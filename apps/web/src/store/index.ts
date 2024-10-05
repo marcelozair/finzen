@@ -1,7 +1,11 @@
-import authReducer from './modules/auth';
 import createSaga from 'redux-saga';
-import rootSaga from './modules/auth/saga';
 import { configureStore } from '@reduxjs/toolkit';
+
+import authReducer from './modules/auth';
+import walletReducer from './modules/wallet';
+import transactionReducer from './modules/transaction';
+
+import rootSaga from './modules/auth/saga';
 
 const sagaMiddleware = createSaga();
 const middleware = [sagaMiddleware];
@@ -9,6 +13,8 @@ const middleware = [sagaMiddleware];
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    wallet: walletReducer,
+    transaction: transactionReducer,
   },
   middleware,
 });

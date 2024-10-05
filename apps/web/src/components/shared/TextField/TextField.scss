@@ -1,18 +1,18 @@
 .text-field {
-  @apply flex flex-col;
+  @apply w-full flex flex-col;
 }
 
 .text-field__label {
-  @apply text-[16px] font-semibold;
+  @apply text-[14px];
 }
 
 .text-field__input {
-  @apply text-[16px] bg-[#FFF6F8] rounded-md h-[40px] px-3 outline-none mt-2 transition-all duration-300 ease-in-out border-2 focus:border-primary-normal;
+  @apply text-[16px] bg-[#FFF] rounded-md h-[40px] px-3 outline-none mt-2 transition-all duration-300 ease-in-out border-2 focus:border-primary-normal;
 }
 
 
 .text-field__input-error {
-  @apply text-[16px] bg-[#FFF6F8] rounded-md h-[40px] px-3 outline-none mt-2 transition-all duration-300 ease-in-out border-2 border-red-400;
+  @apply text-[16px] bg-[#FFF] rounded-md h-[40px] px-3 outline-none mt-2 transition-all duration-300 ease-in-out border-2 border-red-400;
 }
 
 .text-field__message-error {

@@ -1,0 +1,7 @@
+.wallet {
+  @apply w-full;
+}
+
+.wallet-list {
+  @apply flex gap-4 w-full items-center justify-start flex-nowrap;
+}

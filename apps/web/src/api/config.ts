@@ -22,11 +22,17 @@ const addParams = (url: string, params: AxiosParams) => {
 };
 
 const addQuery = (url: string, query: AxiosQuery) => {
-  let urlResult = `${url}?`;
+  
+  const queryArray = Object.entries(query);
+  let urlResult = queryArray.reduce((acc, curr, index) => {
+    if (index === queryArray.length - 1) {
+      acc += curr[0] + "=" + encodeURIComponent(curr[1]);
+    } else {
+      acc += curr[0] + "=" + encodeURIComponent(curr[1]) + '&';
+    }
 
-  for (const key in query) {
-    urlResult += key + "=" + encodeURIComponent(query[key]);
-  }
+    return acc;
+  }, `${url}?`);
 
   return urlResult;
 };

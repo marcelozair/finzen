@@ -2,10 +2,11 @@ import { User } from './schemas/user.schema';
 import { Bank } from './schemas/bank.schema';
 import { Sequelize } from 'sequelize-typescript';
 import { Wallet } from './schemas/wallet.schema';
-import { BankPlace } from './schemas/bankPlace.schema';
-import { Transaction } from './schemas/transactions.schema';
-import { TransactionPlace } from './schemas/transactionPlace.schema';
 import { Profile } from './schemas/profile.schema';
+import { Transaction } from './schemas/transaction.schema';
+import { BankLocation } from './schemas/bank-location.schema';
+import { TransactionLocation } from './schemas/transaction-location.schema';
+import { WalletType } from './schemas/wallet-types.schema';
 
 export const databaseProviders = [
   {
@@ -18,15 +19,17 @@ export const databaseProviders = [
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
+        logging: false,
       });
       sequelize.addModels([
         User,
         Bank,
         Wallet,
+        WalletType,
         Profile,
-        BankPlace,
         Transaction,
-        TransactionPlace,
+        BankLocation,
+        TransactionLocation,
       ]);
       await sequelize.sync({ force: false });
       return sequelize;

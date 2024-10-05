@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Body, HttpStatus, Inject, Post } from '@nestjs/common';
+import { Body, HttpStatus, Inject, Post, UseGuards } from '@nestjs/common';
 import { Controller, Res, HttpCode, NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -7,6 +7,9 @@ import { SignInDto } from './dto/sign-in.dto';
 import { RegisterDto } from './dto/register.dto';
 import { UserService } from '../user/user.service';
 import { ProfileService } from '../profile/profile.service';
+import { GetUser } from 'src/common/decorators/user.decorators';
+import { User } from 'src/database/schemas/user.schema';
+import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +24,7 @@ export class AuthController {
   
   @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Res() res: Response, @Body() body: RegisterDto) {
+  async signUp(@Res() res: Response, @Body() body: RegisterDto) {
     const user = await this.userService.createUser(body);
 
     const token = await this.authService.encryptToken(user);
@@ -39,18 +42,39 @@ export class AuthController {
     const user = await this.userService.findByEmail(email);
     if (!user) throw new NotFoundException('user not exist');
 
-    const validPassword = this.authService.validatePassword(password, user.password)
+    const validPassword = this.authService.validatePassword(password, user.password);
     if (!validPassword) throw new UnauthorizedException('wrong password');
 
     const token = await this.authService.encryptToken(user);
 
     delete user.password;
 
-    if (user.profileSelected) {
-      const profile = await this.profileService.getProfile(user.profileSelected);
+    if (user.profileId) {
+      const profile = await this.profileService.getProfile(user.profileId);
       user.profile = profile;
     }
 
+    await this.userService.updateLastLogin(user);
+
     return res.json({ message: 'user loggin successful', token, user });
+  }
+
+
+  @Post('session')
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async session(@Res() res: Response, @GetUser() user: User) {
+    const userFound = await this.userService.findById(user.id);
+
+    if (userFound.profileId) {
+      const profile = await this.profileService.getProfile(userFound.profileId);
+      userFound.profile = profile;
+    }
+  
+    const token = await this.authService.encryptToken(userFound);
+
+    delete userFound.password;
+
+    return res.json({ message: 'user generate token successful', token, user: userFound });
   }
 }

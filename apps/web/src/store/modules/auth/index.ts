@@ -13,4 +13,5 @@ export default authSlice.reducer;
 export const {
   setSession: setSessionAction,
   setProfile: setProfileAction,
+  removeSession: removeSessionAction,
 } = authSlice.actions;

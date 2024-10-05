@@ -5,10 +5,14 @@ import schemaCreateProfile from '../../../validators/SchemaCreateProfile';
 import { ICreateProfilePayload } from '../../../interfaces/Auth';
 import { $authApi } from '../../../api/modules/auth';
 import { useAppDispatch } from '../../../store/hooks';
-import { setProfileAction } from '../../../store/modules/auth';
+import { setProfileAction, setSessionAction } from '../../../store/modules/auth';
+import { setAuthorizationToken } from '../../../helpers/authorization';
+import { useNavigate } from 'react-router-dom';
+import { toRoutes } from '../../../routes/routes';
 
 export const CreateProfile = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { isValid } } = useForm<ICreateProfilePayload>({
     mode: 'onChange',
@@ -21,6 +25,13 @@ export const CreateProfile = () => {
   const onSubmit = (values: ICreateProfilePayload) => {
     $authApi.createProfile(values).then((response) => {
       dispatch(setProfileAction(response));
+
+      $authApi.session().then((response) => {
+        setAuthorizationToken(response.token);
+        dispatch(setSessionAction(response));
+        
+        navigate(toRoutes.dashboard);
+      })
     });
   }
 

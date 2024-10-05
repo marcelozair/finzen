@@ -9,6 +9,8 @@ import { WalletModule } from './modules/wallet/wallet.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { BcryptService } from './services/bcrypt.service';
 import { AppController } from './app.controller';
+import { BankModule } from './modules/bank/bank.module';
+import { TransactionModule } from './modules/transaction/transaction.module';
 
 @Module({
   imports: [
@@ -17,12 +19,14 @@ import { AppController } from './app.controller';
       envFilePath: '.env',
       isGlobal: true,
     }),
-
+    
     DatabaseModule,
+    BankModule,
     UserModule,
     AuthModule,
     WalletModule,
     ProfileModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [BcryptService],

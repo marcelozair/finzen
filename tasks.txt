@@ -1,3 +1,45 @@
 - Linting with turbo
 - Building apps with turbo
 - ESlint and Prettier with turbo
+
+-------------------------
+
+Wallets Module:
+- When user request for wallets informations use the SSR that includes REAC ROUTER DOM V6
+- CRUD, update and delete wallets
+- Animacion de seleccionado en wallets
+
+-------------------------
+
+Transactions:
+- Create categories
+
+-------------------------
+
+Database:
+- Error in database when we modified tables
+- Create migrations
+- Super admin token to run seed since endpoints
+
+-------------------------
+
+- Two times validate private sessions
+- Dark Mode
+
+-------------------------
+
+Banks Module:
+- Custom banks account
+
+-------------------------
+
+- Remover React.FC
+- Skeleton loading
+
+
+- Get and show Transactions
+
+
+-------------
+
+- Notifications when exec an action

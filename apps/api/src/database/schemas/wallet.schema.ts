@@ -9,41 +9,33 @@ import {
 } from 'sequelize-typescript';
 import { Bank } from './bank.schema';
 import { Profile } from './profile.schema';
-import { Transaction } from './transactions.schema';
-
-export enum EnumWalletType {
-  CREDIT = 'credit',
-  DEBIT = 'debit',
-  SERVICE = 'service',
-  CASH = 'cash',
-}
+import { Transaction } from './transaction.schema';
+import { WalletType } from './wallet-types.schema';
 
 @Table({
-  tableName: 'wallet',
+  tableName: 'wallets',
 })
 export class Wallet extends Model {
   @Column
   name: string;
 
-  @Column({
-    defaultValue: EnumWalletType.CASH,
-    type: DataType.ENUM(...Object.values(EnumWalletType)),
-  })
-  type: EnumWalletType;
+  @ForeignKey(() => WalletType)
+  @Column({ type: DataType.INTEGER })
+  typeId: number;
 
   @Column({
     type: DataType.FLOAT,
   })
   balance: number;
 
-  @Column
+  @Column({ field: 'account_number' })
   accountNumber: string;
 
-  @Column({ field: 'closing_date', allowNull: true })
-  closingDate: Date;
-
   @Column({ field: 'due_date', allowNull: true })
-  dueDate: Date;
+  dueDate: number;
+
+  @Column({ field: 'closing_date', allowNull: true })
+  closingDate: number;
 
   @Column({ defaultValue: '#000000' })
   color: string;
@@ -64,4 +56,7 @@ export class Wallet extends Model {
 
   @BelongsTo(() => Bank)
   bank: Bank;
+
+  @BelongsTo(() => WalletType)
+  type: WalletType;
 }

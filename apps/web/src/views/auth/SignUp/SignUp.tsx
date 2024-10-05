@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { toRoutes } from '../../../routes/routes';
@@ -39,7 +39,7 @@ export const SignUp = () => {
       setAuthorizationToken(response.token);
       dispatch(setSessionAction(response));
 
-      if (!response.user.profileSelected) {
+      if (!response.user.profile) {
         navigate(toRoutes.createProfile);
       }
 
@@ -90,7 +90,10 @@ export const SignUp = () => {
               id="confirmPassword"
             />
 
-            <Button type="submit" loading={loading}>SAVE</Button>
+            <Button type="submit" loading={loading}>Register</Button>
+            <p className="signup-form__message">
+              You have an account? <Link className="link" to={toRoutes.signIn}>Sign In</Link>
+            </p>
           </div>
         </div>
       </form>

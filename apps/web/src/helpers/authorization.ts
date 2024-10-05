@@ -4,6 +4,11 @@ export const getAuthorizationToken = (): string => {
   return localStorage.getItem('authorization-token') || '';
 };
 
+export const removeAuthorizationToken = (): void => {
+  return localStorage.removeItem('authorization-token');
+};
+
+
 export const setAuthorizationToken = (token: string) => {
   localStorage.setItem('authorization-token', token);
   addAxiosAuthorization();

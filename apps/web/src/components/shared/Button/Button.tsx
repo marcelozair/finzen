@@ -1,31 +1,39 @@
+import { Button as CustomButton } from "@nextui-org/button";
+
 import React from 'react';
 
-import './Button.scss'
-import { Spin } from '../Spin/Spin';
-import classNames from 'classnames';
 
 interface IButtonFieldProps {
   type?: 'button' | 'submit';
+  onClick?: () => void;
   children: React.ReactNode;
   className?: string;
-  loading: boolean;
+  loading?: boolean;
+  style?: 'primary' | 'danger' | 'success'
+  variant?: "bordered" | "solid" | "light" | "flat" | "faded" | "shadow" | "ghost"
 }
 
 export const Button: React.FC<IButtonFieldProps> = (props) => {
-  const { type = 'button', children, loading } = props;
+  const {
+    onClick,
+    children,
+    className,
+    loading = false,
+    type = 'button',
+    style = 'primary',
+    variant = 'solid'
+  } = props;
 
   return (
-    <button
+    <CustomButton
+      className={className}
+      isLoading={loading}
       type={type}
-      disabled={loading}
-      className="relative h-[40px] text-white px-3 rounded-md bg-primary-normal font-semibold flex items-center gap-2 justify-center"
+      variant={variant}
+      onClick={onClick}
+      color={style}
     >
-      <div className={classNames({ 'opacity-0': loading })}>{ children }</div>
-      {loading && (
-        <div className="w-full h-full top-0 l-0 flex items-center justify-center absolute">
-          <Spin />
-        </div>
-      )}
-    </button>
+      {children}
+    </CustomButton>
   )
 };

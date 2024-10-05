@@ -21,6 +21,7 @@ export const toRoutes = {
 
   dashboard: '/admin/dashboard',
   wallet: '/admin/wallet',
+  createWallet: '/admin/wallet/create',
 
   createProfile: '/profile/create',
 } 
@@ -34,7 +35,7 @@ export const adminRoutes: RouteApp[] = [
   },
   {
     to: toRoutes.wallet,
-    path: 'wallet',
+    path: 'wallet/*',
     name: 'Wallet',
     Component: WalletLazy,
   },
@@ -50,7 +51,7 @@ export const profielRoutes: RouteApp[] = [
 ]
 
 export const findAdminRoute = (pathname: string): RouteApp => {
-  const route = adminRoutes.find(({ to }) => to === pathname);
+  const route = adminRoutes.find(({ name }) => pathname.includes(name.toLocaleLowerCase()));
   if (route) return route;
   return adminRoutes[0];
 };

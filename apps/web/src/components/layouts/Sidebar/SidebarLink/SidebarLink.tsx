@@ -16,7 +16,7 @@ export const SidebarLink: FC<SidebarLinkProps> = ({ config }) => {
         className={({ isActive }) => (`sidebar-option ${isActive && 'sidebar-option__active'}`)}
         to={config.to}
       >
-        {location.pathname === config.to
+        {location.pathname.includes(config.to)
             ? <img src={`${ICON_SIDEBAR_PATH}/${config.icon}-active.svg`} />
             : <img src={`${ICON_SIDEBAR_PATH}/${config.icon}.svg`} />
         }

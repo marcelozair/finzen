@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { User } from './user.schema';
 import { Wallet } from './wallet.schema';
-import { Transaction } from './transactions.schema';
+import { Transaction } from './transaction.schema';
 
 @Table({
   tableName: 'profiles',

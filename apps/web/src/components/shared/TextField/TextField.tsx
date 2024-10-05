@@ -1,5 +1,6 @@
+import React from 'react';
 import { FieldError } from 'react-hook-form';
-import React, { useEffect } from 'react';
+import { Input, InputProps } from '@nextui-org/react';
 
 import './TextField.scss'
 
@@ -8,28 +9,22 @@ interface ITextFieldProps extends React.DetailedHTMLProps<
   HTMLInputElement
 > {
   label: string;
-  error: FieldError | undefined;
-  type?: 'text' | 'password';
+  error?: FieldError | undefined | null;
 }
 
 export const TextField = React.forwardRef<HTMLInputElement, ITextFieldProps>(
-  ({ label, type = 'text', error, ...rest }, ref) => {
-
-    useEffect(() => {
-      console.log(error);
-    }, [error])
-
+  ({ label, error, disabled, ...rest }, ref) => {
     return (
-      <div className="text-field">
-        <label className="text-field__label">{label}</label>
-        <input
-          className={!!error ? "text-field__input-error" : "text-field__input"}
-          type={type}
-          ref={ref}
-          {...rest}
-        />
-        {!!error && <p className="text-field__message-error">{error.message || 'Información inválida'}</p>}
-      </div>
+      <Input
+      {...rest as InputProps}
+
+      label={label}
+      baseRef={ref}
+      isDisabled={disabled}
+      isInvalid={!!error}
+      errorMessage={error?.message}
+      type="text"
+      />
     )
   }
 )

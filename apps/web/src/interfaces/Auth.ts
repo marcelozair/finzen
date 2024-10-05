@@ -52,7 +52,7 @@ export interface IUser {
   password: string;
   picture: null | string;
   provider: string;
-  profileSelected: null | number;
+  profileId: null | number;
   profile?: null | AuthProfileState;
   createdAt: string;
   updatedAt: string;

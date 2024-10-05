@@ -1,11 +1,11 @@
 .admin {
-  @apply w-screen flex;
+  @apply flex w-full;
 
   &-content {
-    @apply w-full;
+    @apply w-dashboard-width;
     
     &__section {
-      @apply px-[60px] py-10;
+      @apply px-14 py-10;
     }
   }
 }

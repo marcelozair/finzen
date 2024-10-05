@@ -1,28 +1,32 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
-import { EnumWalletType } from 'src/database/schemas/wallet.schema';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateWalletDto {
   @IsString()
   name: string;
 
-  @IsEnum(EnumWalletType)
-  type: string;
+  @IsNumber()
+  @IsOptional()
+  bankId: number;
+
+  @IsNumber()
+  typeId: number;
+
+  @IsOptional()
+  @IsString()
+  accountNumber: string;
+
+  @IsNumber()
+  @IsOptional()
+  closingDate: number;
+
+  @IsNumber()
+  @IsOptional()
+  dueDate: number;
 
   @IsNumber()
   balance: number;
 
   @IsString()
-  accountNumber: string;
-
-  @IsString()
-  closingDate: string;
-
-  @IsString()
-  dueDate: string;
-
-  @IsString()
+  @IsOptional()
   color: string;
-
-  @IsNumber()
-  bankId: number;
 }

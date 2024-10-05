@@ -26,3 +26,11 @@
     }
   }
 }
+
+.signup-form__message {
+  @apply mt-6 text-center text-sm;
+}
+
+.link {
+  @apply text-primary-normal underline;
+}

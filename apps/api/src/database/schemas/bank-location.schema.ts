@@ -4,17 +4,18 @@ import {
   Model,
   ForeignKey,
   BelongsTo,
+  DataType,
 } from 'sequelize-typescript';
 import { Bank } from './bank.schema';
 
 @Table({
-  tableName: 'bank_places',
+  tableName: 'banks_location',
 })
-export class BankPlace extends Model {
-  @Column
+export class BankLocation extends Model {
+  @Column({ type: DataType.STRING })
   name: string;
 
-  @Column
+  @Column({ type: DataType.STRING })
   location: string;
 
   @ForeignKey(() => Bank)

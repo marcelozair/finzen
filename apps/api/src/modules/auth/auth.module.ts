@@ -7,8 +7,7 @@ import { AuthController } from './auth.controller';
 import { ProfileModule } from '../profile/profile.module';
 import { BcryptService } from 'src/services/bcrypt.service';
 import { UserProviderRepository } from '../../database/providers/user.provider';
-
-console.log('SECRET', process.env.JWT_SECRET);
+import { UserService } from '../user/user.service';
 
 @Module({
   controllers: [AuthController],

@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
-import { IUserCreate } from './user.types';
+import { IUserCreate, IUserUpdate } from './user.types';
 import { BcryptService } from 'src/services/bcrypt.service';
 import { EnumProvider, User } from '../../database/schemas/user.schema';
 
@@ -33,6 +33,16 @@ export class UserService {
     return user;
   }
 
+  async updateUser(id: number, payload: IUserUpdate): Promise<void> {
+    await this.userRepository.update({ ...payload }, {
+      where: { id }
+    });
+  }
+
+  async updateLastLogin(user: User) {
+    return user.update({ lastLogin: new Date() });
+  }
+
   async findByEmail(email: string): Promise<User> {
     return this.userRepository.findOne({ where: { email } });
   }
@@ -40,4 +50,5 @@ export class UserService {
   async findById(id: number): Promise<User> {
     return this.userRepository.findOne({ where: { id } });
   }
+
 }

@@ -1,19 +1,18 @@
 import { DataTypes } from 'sequelize';
 import { Profile } from './profile.schema';
-import { Table, Column, Model, HasMany, DataType, HasOne } from 'sequelize-typescript';
+import { Table, Column, Model, HasMany, DataType, HasOne, ForeignKey, BelongsTo } from 'sequelize-typescript';
 
 export enum EnumProvider {
   GOOGLE = 'google',
   LOCAL = 'local',
 }
 
+const EnumProviderType = DataType.ENUM(...Object.values(EnumProvider));
+
 @Table({
   tableName: 'users',
 })
 export class User extends Model {
-  @Column
-  sub: string;
-
   @Column
   name: string;
 
@@ -26,21 +25,25 @@ export class User extends Model {
   @Column({ allowNull: true })
   picture: string;
 
+  @Column({ allowNull: true, type: DataTypes.DATE, field: 'last_login' })
+  lastLogin: Date;
+
   @Column({
     defaultValue: EnumProvider.GOOGLE,
-    type: DataType.ENUM(...Object.values(EnumProvider)),
+    type: EnumProviderType
   })
   provider: EnumProvider;
 
+  @ForeignKey(() => Profile)
   @Column({
-    field: 'profile_selected',
+    field: 'profile_id',
     allowNull: true,
   })
-  profileSelected: number;
+  profileId: number;
+
+  @BelongsTo(() => Profile)
+  profile: Profile;
 
   @HasMany(() => Profile)
   profiles: Profile[];
-
-  @HasOne(() => Profile)
-  profile: Profile;
 }

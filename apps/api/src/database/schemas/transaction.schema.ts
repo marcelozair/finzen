@@ -8,22 +8,26 @@ import {
 } from 'sequelize-typescript';
 import { Wallet } from './wallet.schema';
 import { Profile } from './profile.schema';
-import { TransactionPlace } from './transactionPlace.schema';
+import { TransactionLocation } from './transaction-location.schema';
+
+export enum TransactionType {
+  INCOME = "income",
+  EXPENSE = "expense",
+  TRANSFER = "transfer"
+}
 
 @Table({
   tableName: 'transactions',
 })
 export class Transaction extends Model {
-  @Column
+  @Column({ type: DataType.STRING })
   concept: string;
 
-  @Column({
-    type: DataType.FLOAT,
-  })
+  @Column({ type: DataType.FLOAT })
   amount: number;
 
-  @Column
-  isIncome: boolean;
+  @Column({ type: DataType.STRING })
+  type: TransactionType;
 
   @ForeignKey(() => Wallet)
   @Column({ field: 'wallet_id' })
@@ -34,15 +38,15 @@ export class Transaction extends Model {
 
   @ForeignKey(() => Profile)
   @Column({ field: 'account_id' })
-  accountId: number;
+  profileId: number;
 
   @BelongsTo(() => Profile)
   profile: Wallet;
 
-  @ForeignKey(() => TransactionPlace)
-  @Column({ field: 'place_id' })
-  transactionPlaceId: number;
+  @ForeignKey(() => TransactionLocation)
+  @Column({ field: 'place_id', allowNull: true })
+  transactionPlaceId: number | null;
 
-  @BelongsTo(() => TransactionPlace)
-  transactionPlace: TransactionPlace;
+  @BelongsTo(() => TransactionLocation)
+  transactionPlace: TransactionLocation | null;
 }

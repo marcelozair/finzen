@@ -1,0 +1,27 @@
+.transaction {
+  @apply h-full w-full;
+
+  &__title {
+    @apply font-semibold text-title-font text-xl;
+  }
+
+  &__options {
+    @apply flex w-full justify-between;
+  }
+
+  &__empty {
+    @apply w-full h-full flex items-center justify-center border-dashed;
+
+    &-card {
+      @apply p-4 border-dashed border-app-border border-2 flex flex-col;
+    }
+
+    &-message {
+      @apply text-dark-font;
+    }
+
+    &-button {
+      @apply underline cursor-pointer text-primary-normal;
+    }
+  }
+}
