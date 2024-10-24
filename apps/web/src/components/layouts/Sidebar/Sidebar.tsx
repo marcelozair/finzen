@@ -1,13 +1,10 @@
 import './Sidebar.scss';
 
 import { sidebar } from './config';
-import { useLocation } from 'react-router-dom';
 import { SidebarLink } from './SidebarLink/SidebarLink';
 import { ICON_SIDEBAR_PATH, LOGO_IMAGE } from '../../../constants/path';
 
 export const Sidebar = () => {
-  const location = useLocation();
-
   return (
     <aside className="sidebar">
       <picture className="app-logo-container">
@@ -20,7 +17,7 @@ export const Sidebar = () => {
           <ul>{sidebar.menu.map((config) => (<SidebarLink key={config.name} config={config} />))}</ul>
         </section>
 
-        <section>
+        {/* <section>
           <h3 className="nav-title">AYUDA</h3>
           <ul>
             {sidebar.config.map((config) => (<SidebarLink key={config.name} config={config} />))}
@@ -31,7 +28,7 @@ export const Sidebar = () => {
               </button>
             </li>
           </ul>
-        </section>
+        </section> */}
       </nav>
     </aside>
   );

@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface BackButtonProps {
   callback?: () => void;
+  value: string;
 }
 
-export const BackButton: FC<BackButtonProps> = ({ callback }) => {
+export const BackButton: FC<BackButtonProps> = ({ callback, value }) => {
   const navigate = useNavigate();
   const onRedirectBack = () => callback ? callback() : navigate(-1);
 
@@ -16,7 +17,7 @@ export const BackButton: FC<BackButtonProps> = ({ callback }) => {
       className="flex gap-2 items-center text-primary-normal"
     >
       <img src={backArrow} />
-      Regresar
+      {value}
     </button>
   )
 };

@@ -17,11 +17,6 @@ export class TransactionService {
 
     if (!wallet) throw new NotFoundException('wallet not found');
 
-    console.log({
-      ...body,
-      profileId: profileId,
-    })
-
     const transaction = await this.transactionRepository.create({
       ...body,
       profileId: profileId,

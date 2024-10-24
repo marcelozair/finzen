@@ -7,6 +7,7 @@ import { Transaction } from './schemas/transaction.schema';
 import { BankLocation } from './schemas/bank-location.schema';
 import { TransactionLocation } from './schemas/transaction-location.schema';
 import { WalletType } from './schemas/wallet-types.schema';
+import { Category } from './schemas/category.schema';
 
 export const databaseProviders = [
   {
@@ -30,6 +31,7 @@ export const databaseProviders = [
         Transaction,
         BankLocation,
         TransactionLocation,
+        Category,
       ]);
       await sequelize.sync({ force: false });
       return sequelize;

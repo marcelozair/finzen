@@ -4,11 +4,13 @@ import { useLocation } from 'react-router-dom';
 import { findAdminRoute } from '../../../routes/routes';
 import { UserProfile } from './UserProfile/UserProfile';
 import { NotificationButton } from './Notification/NotificationButton/NotificationButton';
+import { useLanguage } from '../../../hooks/useLanguage';
 
 export const Header = () => {
-  const [routeName, setRouteName] = useState('');
-
   const location = useLocation();
+  const { content } = useLanguage('sidebar');
+
+  const [routeName, setRouteName] = useState('');
 
   useEffect(() => {
     const route = findAdminRoute(location.pathname);
@@ -17,7 +19,7 @@ export const Header = () => {
 
   return (
     <header className="header">
-      <h1 className="header__title">{routeName}</h1>
+      <h1 className="header__title">{content[routeName.toLowerCase()]}</h1>
       <div className="header__features">
         <NotificationButton />
         <UserProfile />

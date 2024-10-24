@@ -3,12 +3,15 @@ import { parseCurrency } from "../../../../helpers/currency"
 import { Transaction, TransactionType } from "../../../../interfaces/Transaction"
 import { FC } from "react"
 import { parseDate } from "../../../../helpers/date"
+import { useLanguage } from "../../../../hooks/useLanguage"
 
 interface TransactionTableProps {
   list: Transaction[]
 }
 
 export const TransactionTable: FC<TransactionTableProps> = ({ list })  => {
+  const { language, content } = useLanguage('walletDetails');
+
   return (
     <section className="flex flex-col gap-6 mt-10">
       {list.map((transaction) => (
@@ -18,7 +21,7 @@ export const TransactionTable: FC<TransactionTableProps> = ({ list })  => {
             <div className='flex w-full justify-between items-center'>
               <div>
                 <p className="font-semibold">{transaction.concept}</p>
-                <p>{parseDate(transaction.createdAt)}</p>
+                <p>{parseDate(transaction.createdAt, language)}</p>
               </div>
               <div>
                 <p className={classNames({
@@ -36,7 +39,9 @@ export const TransactionTable: FC<TransactionTableProps> = ({ list })  => {
       ))}
 
       {!list.length && <div className="h-60 flex justify-center items-center">
-        <p className="text-semibold text-gray-400">No results, start register your transactions now</p>
+        <p className="text-semibold text-gray-400">
+          {content.emptyResults}
+        </p>
       </div>}
     </section>
   )

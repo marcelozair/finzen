@@ -8,12 +8,15 @@ export const sidebar = {
       to: toRoutes.dashboard,
     },
     {
-      name: 'Wallet',
+      name: 'Wallets',
       icon: 'wallet-icon',
       to: toRoutes.wallet,
     },
-    // Prestamos
-    // Creditos
+    {
+      name: 'Goals',
+      icon: 'star-icon',
+      to: toRoutes.goals,
+    },
   ],
   config: [
     {

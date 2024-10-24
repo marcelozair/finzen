@@ -26,6 +26,7 @@ export interface ICreateTransactionForm {
   type: string;
   concept: string;
   amount: number;
+  categoryId?: number | null;
 }
 
 

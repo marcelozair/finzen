@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { selectWalletAction } from '../../../../store/modules/wallet';
 import { useNavigate } from 'react-router-dom';
+import { toRoutes } from '../../../../routes/routes';
 
 interface CardWalletProps {
   wallet: Wallet;
@@ -18,7 +19,7 @@ export const CardWallet: FC<CardWalletProps> = ({ wallet, active }) => {
 
   const selectWallet = () => {
     dispatch(selectWalletAction(wallet));
-    navigate('/admin/wallet/' + wallet.id);
+    navigate(`${toRoutes.wallet}/${wallet.id}`);
   }
 
   return (

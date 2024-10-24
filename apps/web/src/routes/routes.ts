@@ -11,6 +11,7 @@ export interface RouteApp {
   Component: LazyReactView;
 }
 
+const GoalLazy = lazy(() => import('../views/admin/Goals/Goals'));
 const WalletLazy = lazy(() => import('../views/admin/Wallet/Wallet'));
 const DashboardLazy = lazy(() => import('../views/admin/Dashboard/Dashboard'));
 const CreateProfileLazy = lazy(() => import('../views/auth/CreateProfile/CreateProfile'));
@@ -19,10 +20,12 @@ export const toRoutes = {
   signIn: '/sign-in',
   signUp: '/sign-up',
 
+  goals: '/admin/goals',
+  
   dashboard: '/admin/dashboard',
-  wallet: '/admin/wallet',
-  createWallet: '/admin/wallet/create',
-
+  
+  wallet: '/admin/wallets',
+  createWallet: '/admin/wallets/create',
   createProfile: '/profile/create',
 } 
 
@@ -35,9 +38,15 @@ export const adminRoutes: RouteApp[] = [
   },
   {
     to: toRoutes.wallet,
-    path: 'wallet/*',
-    name: 'Wallet',
+    path: 'wallets/*',
+    name: 'Wallets',
     Component: WalletLazy,
+  },
+  {
+    to: toRoutes.goals,
+    path: 'goals',
+    name: 'Goals',
+    Component: GoalLazy,
   },
 ];
 
@@ -55,5 +64,3 @@ export const findAdminRoute = (pathname: string): RouteApp => {
   if (route) return route;
   return adminRoutes[0];
 };
-
-// export default routes;

@@ -40,10 +40,10 @@ export class AuthController {
     const { password, email } = body;
 
     const user = await this.userService.findByEmail(email);
-    if (!user) throw new NotFoundException('user not exist');
+    if (!user) throw new NotFoundException('Your email or password is invalid');
 
     const validPassword = this.authService.validatePassword(password, user.password);
-    if (!validPassword) throw new UnauthorizedException('wrong password');
+    if (!validPassword) throw new UnauthorizedException('Your email or password is invalid');
 
     const token = await this.authService.encryptToken(user);
 

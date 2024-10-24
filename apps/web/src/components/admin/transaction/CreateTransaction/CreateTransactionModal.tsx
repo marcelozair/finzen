@@ -14,6 +14,7 @@ import schemaCreateTransaction from "../../../../validators/transaction/SchemaCr
 import { toast } from "sonner";
 import { setTransactionsAction } from "../../../../store/modules/transaction";
 import { useDispatch } from "react-redux";
+import { useLanguage } from "../../../../hooks/useLanguage";
 
 interface CreateTransactionModalProps {
   size: 'sm' | 'md' | 'lg';
@@ -24,6 +25,7 @@ interface CreateTransactionModalProps {
 export const CreateTransactionModal: FC<CreateTransactionModalProps> = ({
   size, isOpen, onClose
 }) => {
+  const { content } = useLanguage('createTransaction');
   const { selected } = useAppSelector(({ wallet }) => wallet);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -65,13 +67,23 @@ export const CreateTransactionModal: FC<CreateTransactionModalProps> = ({
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Create Transaction</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">{content.title}</ModalHeader>
               <ModalBody>
-                <p>Select the transaction type:</p>
                 <SelectField
                   {...register('type')}
-                  label="Type"
-                  placeholder="Select the transaction type"
+                  label={content.form.type}
+                  placeholder={content.form.typePl}
+                  error={errors.type}
+                  options={[
+                    { value: 'income', label: content.form.typeIncome },
+                    { value: 'expense', label: content.form.typeExpense },
+                    { value: 'transfer', label: content.form.typeTransfer },
+                  ]}
+                />
+                <SelectField
+                  {...register('categoryId')}
+                  label={content.form.category}
+                  placeholder={content.form.categoryPl}
                   error={errors.type}
                   options={[
                     { value: 'income', label: 'Income' },
@@ -81,14 +93,14 @@ export const CreateTransactionModal: FC<CreateTransactionModalProps> = ({
                 />
                 <TextField
                   {...register('concept')}
-                  label="Concept"
-                  placeholder="Insert the concept"
+                  label={content.form.concept}
+                  placeholder={content.form.conceptPl}
                   error={errors.concept}
                 />
                 <NumberField
                   {...register('amount')}
-                  label="Amount"
-                  placeholder="Insert the amount"
+                  label={content.form.amount}
+                  placeholder={content.form.amountPl}
                   error={errors.amount}
                   startContent={
                     <div className="pointer-events-none flex items-center">
@@ -102,10 +114,10 @@ export const CreateTransactionModal: FC<CreateTransactionModalProps> = ({
                   reset();
                   onClose();
                 }}>
-                  Cancel
+                  {content.form.cancel}
                 </Button>
                 <Button loading={loading} style="primary" onClick={handleSubmit(createTransaction)}>
-                  Create
+                  {content.form.submit}
                 </Button>
               </ModalFooter>
             </>

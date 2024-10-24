@@ -1,29 +1,13 @@
 .signup {
-  @apply w-full h-screen flex items-center justify-center;
+  @apply flex;
 
-  &-box {
-    @apply bg-white h-[600px] rounded-md overflow-hidden flex;
-  }
 
   &-form {
-    @apply w-full px-[60px] flex flex-col justify-center;
-    width: calc(960px - 360px);
+    @apply w-1/4 h-screen;
+  }
 
-    &__title {
-      @apply text-2xl font-bold;
-    }
-
-    &__desc {
-      @apply text-base mb-10;
-    }
-
-    &__container {
-      @apply flex flex-col gap-5;
-    }
-
-    &__message {
-      @apply mt-6 text-center text-sm;
-    }
+  &-banner {
+    @apply w-3/4 h-screen bg-primary-normal items-center;
   }
 }
 

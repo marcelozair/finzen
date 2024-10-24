@@ -16,8 +16,12 @@ import { PasswordField } from '../../../components/shared/PasswordField/Password
 
 import './SignIn.scss';
 import { LOGO_IMAGE } from '../../../constants/path';
+import { toast } from 'sonner';
+import { useLanguage } from '../../../hooks/useLanguage';
 
 export const SignIn = () => {
+  const { content } = useLanguage('signIn');
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
@@ -43,8 +47,8 @@ export const SignIn = () => {
       }
 
       return navigate(toRoutes.dashboard);
-    }).catch((error) => {
-      console.error(error)
+    }).catch(({ response: { data } }) => {
+      toast.error(data.message);
     }).finally(() => {
       setLoading(false);
     })
@@ -58,29 +62,29 @@ export const SignIn = () => {
           <picture className="flex items-center justify-center mb-4">
             <img src={LOGO_IMAGE} />
           </picture>
-          <h1 className="signin-form__title">Welcome back</h1>
-          <p className="signin-form__desc">Do it for yourself, manage your finance</p>
+          <h1 className="signin-form__title">{content.title}</h1>
+          <p className="signin-form__desc">{content.sub}</p>
           <div className="signin-form__container">
             <TextField
               {...register('email')}
               error={errors.email}
               disabled={loading}
-              label="Email"
-              placeholder="example@example.com"
+              label={content.form.email}
+              placeholder={content.form.emailPl}
               id="email"
             />
             <PasswordField
               {...register('password')}
               error={errors.password}
-              label="Password"
+              label={content.form.password}
+              placeholder={content.form.passwordPl}
               disabled={loading}
-              placeholder="Enter your password"
               id="password"
             />
-            <Button type="submit" loading={loading}>Sign In</Button>
+            <Button type="submit" loading={loading}>{content.form.submit}</Button>
           </div>
           <p className="signin-form__message">
-            You don't have an account? <Link className="link" to={toRoutes.signUp}>Create account</Link>
+            {content.form.createAccount} <Link className="link" to={toRoutes.signUp}>{content.form.createAccountLink}</Link>
           </p>
         </div>
       </form>

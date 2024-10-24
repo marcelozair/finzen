@@ -1,4 +1,4 @@
-import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { TransactionType } from 'src/database/schemas/transaction.schema';
 
 export class CreateTransactionDto {
@@ -13,4 +13,8 @@ export class CreateTransactionDto {
 
   @IsNumber()
   walletId: number;
+
+  @IsNumber()
+  @IsOptional()
+  categoryId: null | number;
 }

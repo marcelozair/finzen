@@ -2,6 +2,7 @@
 import { FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ICON_SIDEBAR_PATH } from '../../../../constants/path';
+import { useLanguage } from '../../../../hooks/useLanguage';
 
 interface SidebarLinkProps {
   config: { name: string; to: string, icon: string }
@@ -9,6 +10,7 @@ interface SidebarLinkProps {
 
 export const SidebarLink: FC<SidebarLinkProps> = ({ config }) => {
   const location = useLocation();
+  const { content } = useLanguage('sidebar');
 
   return (
     <li>
@@ -20,7 +22,7 @@ export const SidebarLink: FC<SidebarLinkProps> = ({ config }) => {
             ? <img src={`${ICON_SIDEBAR_PATH}/${config.icon}-active.svg`} />
             : <img src={`${ICON_SIDEBAR_PATH}/${config.icon}.svg`} />
         }
-        <p>{config.name}</p>
+        <p>{content[config.name.toLowerCase()]}</p>
       </NavLink>
     </li>
   );

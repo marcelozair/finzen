@@ -9,6 +9,8 @@ import { setProfileAction, setSessionAction } from '../../../store/modules/auth'
 import { setAuthorizationToken } from '../../../helpers/authorization';
 import { useNavigate } from 'react-router-dom';
 import { toRoutes } from '../../../routes/routes';
+import { TextField } from '../../../components/shared/TextField/TextField';
+import { SelectField } from '../../../components/shared/SelectField/SelectField';
 
 export const CreateProfile = () => {
   const dispatch = useAppDispatch();
@@ -37,17 +39,30 @@ export const CreateProfile = () => {
 
   return (
     <main className="create-profile">
+      <section className="create-profile__landing">
+      </section>
       <form className="create-profile__container" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="create-profile__title">Create Your New <span>Profile</span></h2>
-        <p>It's important understand that you can administrate a different profiles in the platform.</p>
-      
-        <input
-          {...register('name')}
-          autoComplete="off"
-          className="create-profile__field"
-          placeholder="Insert profile name ..."
-        />
-       {isValid && <button type="submit" className="create-profile__button">Save and Next</button>}
+        <h2 className="profile-form__title">Create Your <span>Profile</span></h2>
+        <p className="profile-form__sub">As new member, you need to configure your profile, let's do this.</p>
+
+        <div className="profile-form__container">
+          <TextField
+            {...register('name')}
+            label="Profile Name"
+            placeholder="Insert the your profile name (business name or your name)"          
+          />
+
+          <SelectField
+            options={[
+              { label: 'Peruvian Soles', value: 1 },
+              { label: 'Mexican Pesos', value: 2 },
+              { label: 'US Dollar', value: 3 },
+            ]}
+            label="Default Currency"
+            placeholder="Select a default currency"          
+          />
+        </div>
+       {isValid && <button type="submit" className="profile-form__button">Save and Next</button>}
       </form>
     </main>
   )

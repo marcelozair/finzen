@@ -9,6 +9,7 @@ import {
 import { Wallet } from './wallet.schema';
 import { Profile } from './profile.schema';
 import { TransactionLocation } from './transaction-location.schema';
+import { Category } from './category.schema';
 
 export enum TransactionType {
   INCOME = "income",
@@ -29,8 +30,15 @@ export class Transaction extends Model {
   @Column({ type: DataType.STRING })
   type: TransactionType;
 
+  @ForeignKey(() => Category)
+  @Column({ field: 'category_id' })
+  categoryId: number;
+
+  @BelongsTo(() => Category)
+  category: Category;
+
   @ForeignKey(() => Wallet)
-  @Column({ field: 'wallet_id' })
+  @Column({ field: 'wallet_id', allowNull: true })
   walletId: number;
 
   @BelongsTo(() => Wallet)

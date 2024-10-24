@@ -1,4 +1,6 @@
-export const parseDate = (dateString: string): string => {
+import { LanguageCatalog } from "../context/LanguageContext";
+
+export const parseDate = (dateString: string, lang: LanguageCatalog = LanguageCatalog.ES): string => {
   const date = new Date(dateString);
 
   const options: Intl.DateTimeFormatOptions = {
@@ -9,5 +11,5 @@ export const parseDate = (dateString: string): string => {
       hour12: true,
   };
 
-  return new Intl.DateTimeFormat('en-US', options).format(date);
+  return new Intl.DateTimeFormat(lang, options).format(date);
 }

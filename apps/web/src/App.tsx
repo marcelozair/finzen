@@ -11,6 +11,7 @@ import { Admin } from './components/layouts/Admin/Admin';
 import { adminRoutes, profielRoutes } from './routes/routes';
 
 import './App.scss';
+import { SelectLanguage } from './components/shared/SelectLanguage/SelectLanguage';
 
 const App = () => {
   return (
@@ -37,6 +38,8 @@ const App = () => {
 
         <Route path="*" element={<Navigate to="/sign-in" />} />
       </Routes>
+
+      {/* <SelectLanguage /> */}
     </BrowserRouter>
   );
 };

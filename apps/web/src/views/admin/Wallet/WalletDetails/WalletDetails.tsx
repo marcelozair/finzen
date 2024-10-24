@@ -10,6 +10,7 @@ import { TitleView } from "../../../../components/shared/TitleView/TitleView";
 import { setTransactionsAction } from "../../../../store/modules/transaction";
 
 import './WalletDetails.scss';
+import { useLanguage } from "../../../../hooks/useLanguage";
 
 const WalletDetailsSkeleton = () => {
   return (
@@ -48,6 +49,7 @@ const WalletDetailsSkeleton = () => {
 
 export const WalletDetails = () => {
   const dispatch = useDispatch();
+  const { content } = useLanguage('walletDetails');
   const { walletId } = useParams();
 
   const { selected } = useAppSelector(({ wallet }) => wallet);
@@ -71,9 +73,9 @@ export const WalletDetails = () => {
           <div className="wallet-details-account">
             <TitleView>{selected.name}</TitleView>
             {selected.type.name.toLowerCase() === EnumWalletType.CASH ? (
-              <p>Cash Account</p>
+              <p>{content.cash}</p>
             ) : (
-              <p>Banco {selected.bank?.name}</p>
+              <p>{content.bank} {selected.bank?.name}</p>
             )}
           </div>
 

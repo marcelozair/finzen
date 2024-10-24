@@ -1,27 +1,37 @@
 .create-profile {
-  @apply w-full h-screen flex items-center justify-center;
+  @apply w-full flex;
 
   &__container {
-    @apply w-11/12 md:w-3/4;
-  }
+    @apply w-1/4 h-screen flex flex-col p-10;
 
-  &__title {
-    @apply font-bold text-xl text-title-font md:text-left text-center;
+    .profile-form {
+      &__container {
+        @apply w-full flex flex-col gap-4 mt-6;
+      }
+      &__title {
+        @apply font-bold text-xl text-title-font md:text-left text-center;
 
-    span {
-      @apply text-primary-normal;
+        span {
+          @apply text-primary-normal;
+        }
+      }
+
+      &__sub {
+        @apply md:text-left text-center mt-2 text-sm;
+      }
+
+
+      &__button {
+        @apply text-primary-normal mt-2 cursor-pointer;
+      }
     }
   }
 
-  p {
-    @apply md:text-left text-center;
+  &__landing {
+    @apply w-3/4 h-screen bg-primary-normal;
   }
 
-  &__field {
-    @apply h-10 p-3 border-[2px] w-full md:w-1/2 block border-primary-normal rounded-md bg-primary-light mt-4 outline-none;
-  }
 
-  &__button {
-    @apply text-primary-normal mt-2 cursor-pointer;
-  }
+
+
 }

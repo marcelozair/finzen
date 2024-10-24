@@ -16,9 +16,11 @@ import { NumberField } from "../../../../components/shared/NumberField/NumberFie
 import { EnumWalletTypeId, ICreateWalletForm } from "../../../../interfaces/Wallet";
 import { Option, SelectField } from "../../../../components/shared/SelectField/SelectField";
 import { ColorSelectField } from "../../../../components/shared/ColorSelectField/ColorSelectField";
+import { useLanguage } from "../../../../hooks/useLanguage";
 
 export const CreateWallet = () => {
   const navigate = useNavigate();
+  const { content } = useLanguage('createWallet');
   const [loading, setLoading] = useState(false);
 
   const [typesCatalogs, setTypesCatalogs] = useState<Option[]>([]);
@@ -81,24 +83,29 @@ export const CreateWallet = () => {
 
   return (
     <div>
-      <BackButton />
+      <BackButton value={content.back} />
       <section className="mt-6">
-        <TitleView>Create Wallet</TitleView>
+        <TitleView>{content.title}</TitleView>
         <form className="mt-6" onSubmit={handleSubmit(createWalletSubmit)}>
           <div className="flex gap-4 w-full">
             <TextField
               autoComplete="off"
-              label="Account Name"
-              placeholder="Insert account name"
+              label={content.form.accountName}
+              placeholder={content.form.accountNamePl}
               error={errors.name}
               {...register('name')}
             />
             <SelectField
               {...register('typeId')}
               loading={loading}
-              options={typesCatalogs}
-              label="Wallet Type"
-              placeholder="Select the wallet type"
+              options={
+                typesCatalogs.map(({ label, value }) => ({
+                  label: content.form.walletType[label.toLowerCase()],
+                  value: value
+                }))
+              }
+              label={content.form.walletType.label}
+              placeholder={content.form.walletType.placeholder}
               error={errors.typeId}
             />
           </div>
@@ -106,13 +113,13 @@ export const CreateWallet = () => {
           <div className="flex gap-4 mt-4 w-full">
             <NumberField
               {...register('balance')}
-              label="Initial Balance"
-              placeholder="Insert the initial balance"
+              label={content.form.initialBalance}
+              placeholder={content.form.initialBalancePl}
               error={errors.balance}
               min={0}
               startContent={
                 <div className="pointer-events-none flex items-center">
-                  <span className="text-default-400 text-small">$</span>
+                  <span className="text-default-400 text-small">S/</span>
                 </div>
               }
             />
@@ -120,8 +127,8 @@ export const CreateWallet = () => {
               {...register('color')}
               loading={loading}
               options={WALLET_COLORS}
-              label="Select Color"
-              placeholder="Select a color"
+              label={content.form.color}
+              placeholder={content.form.colorPl}
               error={errors.color}
             />
           </div>
@@ -132,18 +139,18 @@ export const CreateWallet = () => {
               loading={loading}
               options={banksCatalog}
               disabled={isCash}
-              label="Bank"
-              placeholder="Select the bank"
+              label={content.form.bank}
+              placeholder={content.form.bankPl}
               error={errors.bankId}
             />
 
             {/* #TODO disabled are not working */}
             <TextField
               {...register('accountNumber')}
-              label="Last 4 digits of the Wallet"
+              label={content.form.digits}
+              placeholder={content.form.digitsPl}
               autoComplete="off"
               disabled={isCash}
-              placeholder="0912"
               error={errors.accountNumber}
             />
           </div>
@@ -151,8 +158,8 @@ export const CreateWallet = () => {
           <div className="flex mt-4 gap-4">
             <NumberField
               {...register('closingDate')}
-              label="Closing Date (Number day)"
-              placeholder="Insert the number of the day"
+              label={content.form.closingDate}
+              placeholder={content.form.closingDatePl}
               disabled={isCash}
               max={31}
               error={errors.closingDate}
@@ -160,8 +167,8 @@ export const CreateWallet = () => {
 
             <NumberField
               {...register('dueDate')}
-              label="DueDate (Number day)"
-              placeholder="Insert the number of the day"
+              label={content.form.dueDate}
+              placeholder={content.form.dueDatePl}
               max={31}
               disabled={isCash}
               error={errors.dueDate}
@@ -169,10 +176,8 @@ export const CreateWallet = () => {
           </div>
 
           <Button className="mt-6" type="submit" loading={loading}>
-            Create Wallet
+            {content.form.submit}
           </Button>
-
-
         </form>
       </section>
     </div>
