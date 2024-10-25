@@ -3,6 +3,7 @@ import { Transaction, TransactionType } from 'src/database/schemas/transaction.s
 import { CreateTransactionDto } from './dto/create-transaction';
 import { WalletService } from '../wallet/wallet.service';
 import { IGetWithPagination } from './transaction.interface';
+import { Category } from 'src/database/schemas/category.schema';
 
 @Injectable()
 export class TransactionService {
@@ -39,6 +40,7 @@ export class TransactionService {
     const transactions = await this.transactionRepository.findAll({
       where: { profileId, walletId },
       offset: limit * (page - 1),
+      include: [Category],
       limit,
       order: [['createdAt', 'desc']]
     });

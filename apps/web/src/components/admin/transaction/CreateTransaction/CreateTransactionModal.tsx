@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react"
@@ -26,7 +26,15 @@ export const CreateTransactionModal: FC<CreateTransactionModalProps> = ({
   size, isOpen, onClose
 }) => {
   const { content } = useLanguage('createTransaction');
-  const { selected } = useAppSelector(({ wallet }) => wallet);
+  const selected = useAppSelector(({ wallet }) => wallet.selected);
+  const categories = useAppSelector(({ transaction }) => transaction.categories);
+
+  const categoriesCatalog = useMemo(() => {
+    return categories.map((category) => ({
+      value: category.id, label: category.name,
+    }));
+  }, [categories]);
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -85,11 +93,7 @@ export const CreateTransactionModal: FC<CreateTransactionModalProps> = ({
                   label={content.form.category}
                   placeholder={content.form.categoryPl}
                   error={errors.type}
-                  options={[
-                    { value: 'income', label: 'Income' },
-                    { value: 'expense', label: 'Expense' },
-                    { value: 'transfer', label: 'Transfer' },
-                  ]}
+                  options={categoriesCatalog}
                 />
                 <TextField
                   {...register('concept')}

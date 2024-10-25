@@ -9,6 +9,8 @@ import { CardWallet } from "../../../../components/admin/wallet/CardWallet/CardW
 import { ButtonAddWallet } from "../../../../components/admin/wallet/ButtonAddWallet/ButtonAddWallet";
 
 import './Wallets.scss';
+import { $transactionApi } from "../../../../api/modules/transaction";
+import { setCategoriesAction } from "../../../../store/modules/transaction";
 
 const CardsWalletSkeleton = () => {
   return (
@@ -51,6 +53,10 @@ export const Wallets = () => {
       if (walletId) setUpSelectedWallet();
 
       setLoading(false);
+    });
+
+    $transactionApi.getAllCategories().then((response) => {
+      dispatch(setCategoriesAction(response.data));
     });
   }, []);
 

@@ -11,6 +11,7 @@ import { BcryptService } from './services/bcrypt.service';
 import { AppController } from './app.controller';
 import { BankModule } from './modules/bank/bank.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TransactionModule } from './modules/transaction/transaction.module';
     WalletModule,
     ProfileModule,
     TransactionModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [BcryptService],

@@ -1,8 +1,11 @@
+import { Category } from "./Category";
+
 export interface Transaction {
   id: number;
   concept: string;
   amount: number;
   type: TransactionType;
+  category: Category;
   walletId: number;
   profileId: number;
   transactionPlaceId: number;
@@ -11,6 +14,7 @@ export interface Transaction {
 
 export interface TransactionState {
   list: Transaction[];
+  categories: Category[]
   page: number;
   total: number;
   limit: number;

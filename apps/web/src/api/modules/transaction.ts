@@ -1,5 +1,6 @@
 import { $axios } from '../config';
 import { ICreateTransactionPayload, IGetTransactionResponse } from '../../interfaces/Transaction';
+import { IGetCategoryResponse } from '../../interfaces/Category';
 
 const TRANSACTION_LIMIT_PER_PAGE = 10;
 
@@ -11,6 +12,10 @@ export const $transactionApi = {
   },
 
   create: (data: ICreateTransactionPayload): Promise<void> => {
-    return  $axios.post('transaction/create', { data });
+    return $axios.post('transaction/create', { data });
   },
+
+  getAllCategories: (): Promise<IGetCategoryResponse> => {
+    return $axios.get('category');
+  }
 };

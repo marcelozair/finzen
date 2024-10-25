@@ -23,7 +23,12 @@ export const TransactionTable: FC<TransactionTableProps> = ({ list })  => {
                 <p className="font-semibold">{transaction.concept}</p>
                 <p>{parseDate(transaction.createdAt, language)}</p>
               </div>
-              <div>
+              <div className="flex gap-8">
+                {transaction.category && (
+                  <p className="text-xs px-3 py-[6px] bg-secondary-50 text-secondary-700 font-semibold rounded-full">
+                    {transaction.category.name}
+                  </p>
+                )}
                 <p className={classNames({
                   'text-green-500': transaction.type === TransactionType.INCOME,
                   'text-red-500': transaction.type !== TransactionType.INCOME,

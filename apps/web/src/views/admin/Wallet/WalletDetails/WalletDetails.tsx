@@ -11,6 +11,8 @@ import { setTransactionsAction } from "../../../../store/modules/transaction";
 
 import './WalletDetails.scss';
 import { useLanguage } from "../../../../hooks/useLanguage";
+import { Button } from "../../../../components/shared/Button/Button";
+import { OptionsWallet } from "../../../../components/admin/wallet/OptionsWallet/OptionsWallet";
 
 const WalletDetailsSkeleton = () => {
   return (
@@ -77,6 +79,10 @@ export const WalletDetails = () => {
             ) : (
               <p>{content.bank} {selected.bank?.name}</p>
             )}
+
+            <div className="absolute top-0 right-0">
+              <OptionsWallet />
+            </div>
           </div>
 
           <div className="wallet-details-summary">
